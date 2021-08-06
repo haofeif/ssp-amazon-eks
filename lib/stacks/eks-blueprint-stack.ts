@@ -66,27 +66,27 @@ export class EksBlueprint extends cdk.Stack {
         const promises = Array<Promise<any>>();
 
         for (let addOn of (blueprintProps.addOns ?? [])) { // must iterate in the strict order
-            const result : any = addOn.deploy(clusterInfo);
-            if(result) {
+            const result: any = addOn.deploy(clusterInfo);
+            if (result) {
                 promises.push(<Promise<any>>result);
             }
-            const postDeploy : any = addOn;
-            if((postDeploy as ClusterPostDeploy).postDeploy !== undefined) {
+            const postDeploy: any = addOn;
+            if ((postDeploy as ClusterPostDeploy).postDeploy !== undefined) {
                 postDeploymentSteps.push(<ClusterPostDeploy>postDeploy);
             }
         }
-        
+
         if (blueprintProps.teams != null) {
-            for(let team of blueprintProps.teams) {
+            for (let team of blueprintProps.teams) {
                 team.setup(clusterInfo);
             }
         }
 
         Promise.all(promises).then(() => {
-            for(let step of postDeploymentSteps) {
+            for (let step of postDeploymentSteps) {
                 step.postDeploy(clusterInfo, blueprintProps.teams ?? []);
             }
-        }).catch(err => { throw new Error(err)});
+        }).catch(err => { throw new Error(err) });
     }
 
     private validateInput(blueprintProps: EksBlueprintProps) {
