@@ -50,7 +50,8 @@ export default class BlueprintConstruct extends cdk.Construct {
             new ssp.addons.ContainerInsightsAddOn(),
             new ssp.addons.AwsLoadBalancerControllerAddOn(),
             new ssp.addons.SecretsStoreAddOn(),
-            new ssp.addons.SSMAgentAddOn()
+            new ssp.addons.SSMAgentAddOn(),
+            new ssp.addons.OpaGatekeeperAddOn()
         ];
 
         const blueprintID = `${blueprintProps.id}-dev`
