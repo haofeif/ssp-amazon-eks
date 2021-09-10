@@ -109,7 +109,7 @@ In the context of a Shared Services Platform running on Amazon EKS, platform tea
 
 ## Getting Started with OPA Gatekeeper
 
-For the purposes of operating within a Shared Services Platform, we will be focusing on how to use a policy driven approach to secure our cluster using OPA Gatekeeper. You will see a directory with a set of example policies you can use to get started which can be found [here](https://github.com/open-policy-agent/gatekeeper-library/tree/master/library/general). 
+For the purposes of operating within a Shared Services Platform, we will be focusing on how to use a policy driven approach to secure our cluster using OPA Gatekeeper. You will see a directory with a set of example policies you can use to get started which can be found [here](https://github.com/open-policy-agent/gatekeeper-library/tree/master/library/general). Since the SSP comes with OPA Gatekeeper installed via Helm, you can simply navigate to the examples directory and choose the policies you wish to apply to your cluster. 
 
 In this example, the cluster admin will force the use of unprivileged containers in the cluseter. The OPA Gatekeeper will look for the securitycontext field and check if privileged=true. If it’s the case, then, the request will fail. The policy should look like the following: 
 
@@ -230,6 +230,8 @@ As explained above the request was denied by the Kubernetes API because it didn'
 ## Limitations
 
 - **Note: PSP's will be deprecated as of Kubernetes version 1.21 so please keep that in mind while you are evaluating this add-on. To learn more please follow this [link](https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)**
+
+- Currently only works on Linux based OS's
 
 - Gatekeeper does not provide the ability to generate new policies based on new resources or services created. An example would be if you were to create a new namespace and being able to have Gatekeeper generate a new policy based on the namespace that was just created. 
 
